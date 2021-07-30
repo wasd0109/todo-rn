@@ -7,10 +7,16 @@ import { Provider } from "react-redux";
 
 let component: RenderAPI;
 
+const props = {
+  navigation: {
+    navigate: jest.fn(),
+  },
+};
+
 beforeEach(() => {
   component = render(
     <Provider store={store}>
-      <HomeScreen />
+      <HomeScreen {...props} />
     </Provider>
   );
 });

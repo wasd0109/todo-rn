@@ -32,6 +32,7 @@ const AddTodoScreen = ({ navigation }: AddTodoScreenProps) => {
       ) : null}
       <Spacer>
         <Button
+          style={styles.buttonStyle}
           mode="contained"
           onPress={() => {
             if (!title) return setError("Please enter title");
@@ -58,5 +59,9 @@ const styles = StyleSheet.create({
   },
   errorStyle: {
     color: "red",
+  },
+  buttonStyle: {
+    width: 200,
+    alignSelf: "center",
   },
 });
