@@ -31,6 +31,11 @@ describe("AppBar render correctly", () => {
     expect(getAllByText("Test").length).toEqual(1);
   });
 
+  test("AppBar render route name as App if title no given", () => {
+    const { getAllByText } = render(<AppBar />);
+    expect(getAllByText("App").length).toEqual(1);
+  });
+
   test("Back button render if previous props is not undefined", () => {
     const props = {
       navigation: {
@@ -50,13 +55,33 @@ describe("AppBar render correctly", () => {
     const { queryByLabelText } = component;
     expect(queryByLabelText("back-button")).toEqual(null);
   });
+});
 
+describe("AppBar function properly", () => {
   test("Plus button lead to AddToDo screen", () => {
     const { getByLabelText } = component;
     const addButtonRef = getByLabelText("add-todo");
     fireEvent.press(addButtonRef);
+    expect(defaultProps.navigation.navigate).toBeCalled();
     expect(defaultProps.navigation.navigate).toBeCalledWith("AddTodo");
   });
-});
 
-// describe("AppBar function correctly");
+  test("Back button lead to previous screen", () => {
+    const props = {
+      navigation: {
+        navigate: jest.fn(),
+        goBack: jest.fn(),
+      },
+      scene: {
+        descriptor: {
+          options: { title: "Test" },
+        },
+      },
+      previous: true,
+    };
+    const { getByLabelText } = render(<AppBar {...props} />);
+    const backBtnRef = getByLabelText("back-button");
+    fireEvent.press(backBtnRef);
+    expect(props.navigation.goBack).toBeCalled();
+  });
+});

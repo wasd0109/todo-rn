@@ -3,8 +3,6 @@ import "react-native-paper";
 import { render } from "@testing-library/react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 
-jest.mock("react-native-vector-icons/", () => "Icon");
-
 const AllTheProviders = ({ children }) => {
   return <PaperProvider>{children}</PaperProvider>;
 };

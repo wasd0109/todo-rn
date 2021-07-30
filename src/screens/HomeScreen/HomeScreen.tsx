@@ -21,6 +21,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                   {...props}
                   icon="dots-horizontal"
                   onPress={() => navigation.navigate("Detail", { id: item.id })}
+                  accessibilityLabel="more-button"
                 />
               )}
             />

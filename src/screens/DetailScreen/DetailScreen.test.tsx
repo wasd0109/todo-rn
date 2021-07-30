@@ -2,50 +2,33 @@ import React from "react";
 import { render } from "../../test-utils";
 import DetailScreen from "./DetailScreen";
 import { fireEvent, RenderAPI } from "@testing-library/react-native";
-import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { Todo } from "../../slices/todoSlices";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { todoSlice, addTodo, Todo } from "../../slices/todoSlices";
+
+let store: any;
 
 const TEST_TITLE = "Hello";
-const TODO_ID = uuidv4();
 
-const initialState = {
-  todoList: [{ title: "Test", date: 123456, id: TODO_ID }],
+const initialTodo = {
+  title: "Test",
+  date: 123456,
+  id: "1f4ba8ae-f657-421e-8bb7-48e39f3be323",
 };
-
-const todoSlice = createSlice({
-  name: "todo",
-  initialState,
-  reducers: {
-    editTodo: (state, action: PayloadAction<Todo>) => {
-      const index = state.todoList.findIndex(
-        (todo) => todo.id === action.payload.id
-      );
-      state.todoList.splice(index, 1, action.payload);
-    },
-    deleteTodo: (state, action: PayloadAction<string>) => {
-      const index = state.todoList.findIndex(
-        (todo) => todo.id === action.payload
-      );
-      state.todoList.splice(index, 1);
-    },
-  },
-});
-const store = configureStore({ reducer: { todo: todoSlice.reducer } });
 
 const props = {
   navigation: { goBack: jest.fn() },
   route: {
-    params: { id: TODO_ID },
+    params: { id: initialTodo.id },
   },
 } as any;
 
 let component: RenderAPI;
 
 beforeEach(() => {
+  store = configureStore({ reducer: { todo: todoSlice.reducer } });
+  store.dispatch(addTodo(initialTodo));
   component = render(
     <Provider store={store}>
       <DetailScreen {...props} />
@@ -61,7 +44,7 @@ describe("DetailScreen render correctly", () => {
 
   test("DetailScreen show date created correctly ", () => {
     const { getAllByText } = component;
-    const date = initialState.todoList[0].date;
+    const date = initialTodo.date;
     expect(
       getAllByText("Created at: " + format(date, "mm/dd/yy kk:mm")).length
     ).toEqual(1);
@@ -84,7 +67,7 @@ describe("DetailScreen function properly", () => {
     fireEvent.press(editBtnRef);
     const todoArray = store
       .getState()
-      .todo.todoList.filter((todo) => todo.title === TEST_TITLE);
+      .todo.todoList.filter((todo: Todo) => todo.title === TEST_TITLE);
     expect(todoArray.length).toEqual(1);
   });
 
@@ -96,7 +79,7 @@ describe("DetailScreen function properly", () => {
     fireEvent.press(delBtnRef);
     const todoArray = store
       .getState()
-      .todo.todoList.filter((todo) => todo.title === TEST_TITLE);
+      .todo.todoList.filter((todo: Todo) => todo.title === TEST_TITLE);
     expect(todoArray.length).toEqual(0);
   });
 });

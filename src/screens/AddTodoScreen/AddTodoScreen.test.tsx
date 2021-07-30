@@ -64,6 +64,7 @@ describe("AddTodoScreen function properly", () => {
     const titleInputRef = getByTestId("title-input");
     fireEvent.changeText(titleInputRef, TEST_TODO_TITLE);
     fireEvent.press(buttonRef);
+    expect(props.navigation.navigate).toBeCalled();
     expect(props.navigation.navigate).toBeCalledWith("Home");
   });
 
