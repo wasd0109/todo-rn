@@ -357,7 +357,7 @@ exports[`DetailScreen render correctly DetailScreen render 1`] = `
             }
           }
           accessible={true}
-          focusable={false}
+          focusable={true}
           onClick={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
