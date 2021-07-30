@@ -22,9 +22,21 @@ export const todoSlice = createSlice({
     addTodo: (state, action: PayloadAction<Todo>) => {
       state.todoList.push(action.payload);
     },
+    editTodo: (state, action: PayloadAction<Todo>) => {
+      const index = state.todoList.findIndex(
+        (todo) => todo.id === action.payload.id
+      );
+      state.todoList.splice(index, 1, action.payload);
+    },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      const index = state.todoList.findIndex(
+        (todo) => todo.id === action.payload
+      );
+      state.todoList.splice(index, 1);
+    },
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, editTodo, deleteTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;

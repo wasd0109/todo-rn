@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { List, Divider, Provider } from "react-native-paper";
+import { List, Divider, Provider, IconButton } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { HomeScreenProps } from "./HomeScreenType";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const todoList = useSelector((state: RootState) => state.todo.todoList);
-
   return (
     <FlatList
       data={todoList}
@@ -14,7 +14,16 @@ const HomeScreen = () => {
       renderItem={({ item }) => {
         return (
           <>
-            <List.Item title={item.title} />
+            <List.Item
+              title={item.title}
+              right={(props) => (
+                <IconButton
+                  {...props}
+                  icon="dots-horizontal"
+                  onPress={() => navigation.navigate("Detail", { id: item.id })}
+                />
+              )}
+            />
             <Divider />
           </>
         );
@@ -22,6 +31,8 @@ const HomeScreen = () => {
     />
   );
 };
+
+//
 
 export default HomeScreen;
 

@@ -1,6 +1,11 @@
-import { ParamListBase, Route } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../types/ReactNavigationType";
+
+type AddTodoScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "AddTodo"
+>;
 
 export type AddTodoScreenProps = {
-  navigation: StackNavigationProp<ParamListBase, string>;
+  navigation: AddTodoScreenNavigationProp;
 };

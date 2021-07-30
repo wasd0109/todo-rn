@@ -259,6 +259,7 @@ exports[`AddTodoScreen render correctly AddTodoScreen render 1`] = `
       <View
         style={
           Object {
+            "alignSelf": "center",
             "backgroundColor": "#6200ee",
             "borderColor": "transparent",
             "borderRadius": 4,
@@ -273,6 +274,7 @@ exports[`AddTodoScreen render correctly AddTodoScreen render 1`] = `
             },
             "shadowOpacity": 0.24,
             "shadowRadius": 1.5,
+            "width": 200,
           }
         }
       >
