@@ -6,6 +6,8 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { Todo } from "../../slices/todoSlices";
 
 const TEST_TITLE = "Hello";
 const TODO_ID = uuidv4();
@@ -17,12 +19,25 @@ const initialState = {
 const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
+  reducers: {
+    editTodo: (state, action: PayloadAction<Todo>) => {
+      const index = state.todoList.findIndex(
+        (todo) => todo.id === action.payload.id
+      );
+      state.todoList.splice(index, 1, action.payload);
+    },
+    deleteTodo: (state, action: PayloadAction<string>) => {
+      const index = state.todoList.findIndex(
+        (todo) => todo.id === action.payload
+      );
+      state.todoList.splice(index, 1);
+    },
+  },
 });
 const store = configureStore({ reducer: { todo: todoSlice.reducer } });
 
 const props = {
-  navigation: {},
+  navigation: { goBack: jest.fn() },
   route: {
     params: { id: TODO_ID },
   },
@@ -54,10 +69,34 @@ describe("DetailScreen render correctly", () => {
 });
 
 describe("DetailScreen function properly", () => {
-  test("Detail screen allow Todo title to be edited", () => {
+  test("DetailScreen allow Todo title to be edited", () => {
     const { getByTestId, getAllByDisplayValue } = component;
     const titleInputRef = getByTestId("title-input");
     fireEvent.changeText(titleInputRef, TEST_TITLE);
     expect(getAllByDisplayValue(TEST_TITLE).length).toEqual(1);
+  });
+
+  test("DetailScreen edit button edit the Todo title", () => {
+    const { getByTestId, getByText } = component;
+    const titleInputRef = getByTestId("title-input");
+    const editBtnRef = getByText("Edit");
+    fireEvent.changeText(titleInputRef, TEST_TITLE);
+    fireEvent.press(editBtnRef);
+    const todoArray = store
+      .getState()
+      .todo.todoList.filter((todo) => todo.title === TEST_TITLE);
+    expect(todoArray.length).toEqual(1);
+  });
+
+  test("DetailScreen delete button delete the Todo title", () => {
+    const { getByTestId, getByText } = component;
+    const titleInputRef = getByTestId("title-input");
+    const delBtnRef = getByText("Delete");
+    fireEvent.changeText(titleInputRef, TEST_TITLE);
+    fireEvent.press(delBtnRef);
+    const todoArray = store
+      .getState()
+      .todo.todoList.filter((todo) => todo.title === TEST_TITLE);
+    expect(todoArray.length).toEqual(0);
   });
 });
