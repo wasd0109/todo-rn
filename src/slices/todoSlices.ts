@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Todo {
   title: string;
-  date: number;
+  date: Date;
+  content?: string;
   id: string;
 }
 
