@@ -4,11 +4,8 @@ import AddTodoScreen from "./AddTodoScreen";
 import { RenderAPI } from "@testing-library/react-native";
 
 import { store } from "../../store";
-import { AddTodoScreenProps } from "./AddTodoScreenType";
-import { ParamListBase, Route } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { Provider } from "react-redux";
 
-const TODO_TITLE_PLACEHOLDER = "Buy groceries";
 const TEST_TODO_TITLE = "Buy things";
 
 let component: RenderAPI;
@@ -20,7 +17,11 @@ let props = {
 } as any;
 
 beforeEach(() => {
-  component = render(<AddTodoScreen {...props} />);
+  component = render(
+    <Provider store={store}>
+      <AddTodoScreen {...props} />
+    </Provider>
+  );
 });
 
 describe("AddTodoScreen render correctly", () => {
@@ -54,7 +55,11 @@ describe("AddTodoScreen function properly", () => {
         navigate: jest.fn(),
       },
     } as any;
-    const { getByText, getByTestId } = render(<AddTodoScreen {...props} />);
+    const { getByText, getByTestId } = render(
+      <Provider store={store}>
+        <AddTodoScreen {...props} />
+      </Provider>
+    );
     const buttonRef = getByText("Add Todo");
     const titleInputRef = getByTestId("title-input");
     fireEvent.changeText(titleInputRef, TEST_TODO_TITLE);
@@ -68,14 +73,22 @@ describe("AddTodoScreen function properly", () => {
         navigate: jest.fn(),
       },
     } as any;
-    const { getByText } = render(<AddTodoScreen {...props} />);
+    const { getByText } = render(
+      <Provider store={store}>
+        <AddTodoScreen {...props} />
+      </Provider>
+    );
     const buttonRef = getByText("Add Todo");
     fireEvent.press(buttonRef);
     expect(props.navigation.navigate).toBeCalledTimes(0);
   });
 
   test("Add Todo button add Todo to state", () => {
-    const { getByText, getByTestId } = render(<AddTodoScreen {...props} />);
+    const { getByText, getByTestId } = render(
+      <Provider store={store}>
+        <AddTodoScreen {...props} />
+      </Provider>
+    );
     const buttonRef = getByText("Add Todo");
     const titleInputRef = getByTestId("title-input");
     fireEvent.changeText(titleInputRef, TEST_TODO_TITLE);

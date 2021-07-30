@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailScreen render correctly DetailScreen render  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen render 1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen render 2`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen s  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show   1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show dat  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date c  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date creat  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created   1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created co  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created corre  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created correc  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
+
+exports[`DetailScreen render correctly DetailScreen show date created correctly  1`] = `
+<View
+  collapsable={false}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <Text />
+  </View>
+</View>
+`;
