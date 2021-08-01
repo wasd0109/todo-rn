@@ -1,35 +1,69 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import { List, Divider, Provider, IconButton } from "react-native-paper";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { StyleSheet, View, FlatList } from "react-native";
+import {
+  List,
+  Divider,
+  Provider,
+  IconButton,
+  ActivityIndicator,
+  Banner,
+  Text,
+} from "react-native-paper";
+
 import { HomeScreenProps } from "./HomeScreenType";
+import db from "../../utils/fbinit";
+import { Todo } from "../../slices/todoSlices";
+import { useFBGetAll } from "../../api/useFirestore";
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const todoList = useSelector((state: RootState) => state.todo.todoList);
+  const [shouldRefetch, refetch] = useState({});
+  const { loading, data, error } = useFBGetAll("todos", shouldRefetch);
+
+  if (loading) {
+    return (
+      <View style={styles.spinnerContainerStyle}>
+        <ActivityIndicator testID="spinner" size="large" />
+      </View>
+    );
+  }
   return (
-    <FlatList
-      data={todoList}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => {
-        return (
-          <>
-            <List.Item
-              title={item.title}
-              right={(props) => (
-                <IconButton
-                  {...props}
-                  icon="dots-horizontal"
-                  onPress={() => navigation.navigate("Detail", { id: item.id })}
-                  accessibilityLabel="more-button"
-                />
-              )}
-            />
-            <Divider />
-          </>
-        );
-      }}
-    />
+    <>
+      <Banner
+        visible={error ? true : false}
+        actions={[
+          {
+            label: "Reload",
+            onPress: () => refetch({}),
+          },
+        ]}
+      >
+        There was a problem loading the todo list
+      </Banner>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => {
+          return (
+            <>
+              <List.Item
+                title={item.title}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="dots-horizontal"
+                    onPress={() =>
+                      navigation.navigate("Detail", { id: item.id })
+                    }
+                    accessibilityLabel="more-button"
+                  />
+                )}
+              />
+              <Divider />
+            </>
+          );
+        }}
+      />
+    </>
   );
 };
 
@@ -37,4 +71,9 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  spinnerContainerStyle: {
+    justifyContent: "center",
+    flex: 1,
+  },
+});

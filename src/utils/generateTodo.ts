@@ -6,10 +6,10 @@ import { getUnixTime } from "date-fns";
 // Date can added for testing/specific timezone
 const generateTodo: (title: string, date?: Date) => Todo = (
   title: string,
-  date?: Date
+  createdAt?: Date
 ): Todo => {
   return {
-    date: date ? getUnixTime(date) : getUnixTime(new Date()),
+    createdAt: createdAt ? getUnixTime(createdAt) : getUnixTime(new Date()),
     title,
     id: uuidv4(),
   };

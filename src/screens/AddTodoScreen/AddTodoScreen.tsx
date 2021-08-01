@@ -6,13 +6,20 @@ import { useDispatch } from "react-redux";
 import { addTodo } from "../../slices/todoSlices";
 import { AddTodoScreenProps } from "./AddTodoScreenType";
 import generateTodo from "../../utils/generateTodo";
+import db from "../../utils/fbinit";
+import { fbAdd } from "../../api/useFirestore";
 
 const TODO_TITLE_PLACEHOLDER = "Buy groceries";
 
 const AddTodoScreen = ({ navigation }: AddTodoScreenProps) => {
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
+  const onSubmit = () => {
+    const todo = generateTodo(title);
+    fbAdd("todos", todo)
+      .then(() => navigation.navigate("Home"))
+      .catch((err) => setError(err));
+  };
   return (
     <View style={styles.containerStyle}>
       <Spacer>
@@ -34,12 +41,7 @@ const AddTodoScreen = ({ navigation }: AddTodoScreenProps) => {
         <Button
           style={styles.buttonStyle}
           mode="contained"
-          onPress={() => {
-            if (!title) return setError("Please enter title");
-            setError("");
-            dispatch(addTodo(generateTodo(title)));
-            navigation.navigate("Home");
-          }}
+          onPress={() => onSubmit()}
         >
           Add Todo
         </Button>
