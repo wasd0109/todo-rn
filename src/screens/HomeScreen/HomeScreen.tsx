@@ -13,7 +13,7 @@ import {
 import { HomeScreenProps } from "./HomeScreenType";
 import db from "../../utils/fbinit";
 import { Todo } from "../../slices/todoSlices";
-import { useFBGetAll } from "../../api/useFirestore";
+import useFBGetAll from "../../api/useFBGetAll";
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const [shouldRefetch, refetch] = useState({});

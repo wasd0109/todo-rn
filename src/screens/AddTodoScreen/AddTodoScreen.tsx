@@ -3,22 +3,20 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import Spacer from "../../components/Spacer/Spacer";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../slices/todoSlices";
+import { addTodo, Todo } from "../../slices/todoSlices";
 import { AddTodoScreenProps } from "./AddTodoScreenType";
 import generateTodo from "../../utils/generateTodo";
 import db from "../../utils/fbinit";
-import { fbAdd } from "../../api/useFirestore";
+import { useFBAdd } from "../../api/useFBAdd";
 
 const TODO_TITLE_PLACEHOLDER = "Buy groceries";
 
 const AddTodoScreen = ({ navigation }: AddTodoScreenProps) => {
   const [title, setTitle] = useState("");
-  const [error, setError] = useState("");
+  const [todo, setTodo] = useState<Todo>({} as Todo);
+  const { success, loading, error } = useFBAdd("todos", todo);
   const onSubmit = () => {
-    const todo = generateTodo(title);
-    fbAdd("todos", todo)
-      .then(() => navigation.navigate("Home"))
-      .catch((err) => setError(err));
+    setTodo(generateTodo(title));
   };
   return (
     <View style={styles.containerStyle}>

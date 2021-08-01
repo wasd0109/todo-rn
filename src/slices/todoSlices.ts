@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Doc } from "../api/useFBAdd";
 
-export interface Todo {
+export type Todo = {
   title: string;
   createdAt: number;
   content?: string;
   id: string;
-}
+};
 
 export interface TodoState {
   todoList: Todo[];

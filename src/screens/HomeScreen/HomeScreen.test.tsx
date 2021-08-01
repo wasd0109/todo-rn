@@ -7,7 +7,7 @@ import MockedNavigator, {
   waitForElementToBeRemoved,
 } from "../../test-utils";
 import HomeScreen from ".";
-import { useFBGetAll } from "../../api/useFirestore";
+import useFBGetAll from "../../api/useFBGetAll";
 import { todoSlice, addTodo } from "../../slices/todoSlices";
 import { act } from "@testing-library/react-native";
 import { HomeScreenProps } from "./HomeScreenType";
@@ -22,9 +22,7 @@ const initialTodo = {
 const navigation: any = {
   navigate: jest.fn(),
 };
-jest.mock("../../api/useFirestore", () => ({
-  useFBGetAll: jest.fn(),
-}));
+jest.mock("../../api/useFBGetAll", () => jest.fn());
 
 beforeEach(() => {
   (useFBGetAll as jest.Mock).mockReturnValue({
