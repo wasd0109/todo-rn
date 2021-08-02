@@ -8,7 +8,7 @@ cache:
   directories:
     - node_modules
 before_script:
-  - yarn add -g yarn@latest
+  - yarn global add yarn@latest
   - yarn add jest -D
 script:
   - yarn install --frozen-lockfile
