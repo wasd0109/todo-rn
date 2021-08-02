@@ -15,13 +15,6 @@ function AppBar({ scene, previous, navigation }: AppBarProps) {
         />
       ) : null}
       <Appbar.Content title={scene ? scene.descriptor.options.title : "App"} />
-      <Appbar.Action
-        accessibilityLabel="add-todo"
-        icon="plus"
-        onPress={() => {
-          navigation.navigate("AddTodo");
-        }}
-      />
     </Appbar.Header>
   );
 }
