@@ -3,11 +3,10 @@ import { StyleSheet, View, FlatList } from "react-native";
 import {
   List,
   Divider,
-  Provider,
   IconButton,
   ActivityIndicator,
   Banner,
-  Text,
+  FAB,
 } from "react-native-paper";
 
 import { HomeScreenProps } from "./HomeScreenType";
@@ -65,6 +64,12 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
           );
         }}
       />
+      <FAB
+        style={styles.addBtnStyle}
+        icon="plus"
+        accessibilityLabel="Add button"
+        onPress={() => navigation.navigate("AddTodo")}
+      />
     </>
   );
 };
@@ -78,4 +83,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
   },
+  addBtnStyle: { position: "absolute", margin: 40, right: 0, bottom: 0 },
 });

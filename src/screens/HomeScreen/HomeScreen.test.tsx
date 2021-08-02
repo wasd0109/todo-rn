@@ -86,6 +86,11 @@ describe("HomeScreen render correctly", () => {
       getAllByText("There was a problem loading the todo list").length
     ).toEqual(1);
   });
+
+  test("HomeScreen render Add FAB button", () => {
+    const { getAllByLabelText } = component;
+    expect(getAllByLabelText("Add button").length).toEqual(1);
+  });
 });
 
 describe("HomeScreen function properly", () => {
@@ -121,5 +126,12 @@ describe("HomeScreen function properly", () => {
     const refreshBtnRef = getByText("Reload");
     fireEvent.press(refreshBtnRef);
     expect(useFBGetAll).toBeCalled();
+  });
+  test("Add FAB button lead to add screen", () => {
+    const { getByLabelText } = component;
+    const addBtnRef = getByLabelText("Add button");
+    fireEvent.press(addBtnRef);
+    expect(navigation.navigate).toBeCalled();
+    expect(navigation.navigate).toBeCalledWith("AddTodo");
   });
 });
