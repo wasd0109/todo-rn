@@ -1,0 +1,15 @@
+---
+language: node_js
+node_js:
+  - node
+  - lts/*
+cache:
+  yarn: true
+  directories:
+    - node_modules
+before_script:
+  - yarn global add yarn@latest
+  - yarn add jest -D
+script:
+  - yarn install --frozen-lockfile
+  - yarn jest --ci
