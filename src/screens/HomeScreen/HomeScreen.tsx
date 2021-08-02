@@ -28,17 +28,19 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   }
   return (
     <>
-      <Banner
-        visible={error ? true : false}
-        actions={[
-          {
-            label: "Reload",
-            onPress: () => refetch({}),
-          },
-        ]}
-      >
-        There was a problem loading the todo list
-      </Banner>
+      {error ? (
+        <Banner
+          visible={true}
+          actions={[
+            {
+              label: "Reload",
+              onPress: () => refetch({}),
+            },
+          ]}
+        >
+          There was a problem loading the todo list
+        </Banner>
+      ) : null}
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}

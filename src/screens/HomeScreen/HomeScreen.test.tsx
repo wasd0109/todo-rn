@@ -1,16 +1,7 @@
 import React from "react";
-import MockedNavigator, {
-  render,
-  fireEvent,
-  RenderAPI,
-  waitFor,
-  waitForElementToBeRemoved,
-} from "../../test-utils";
+import { render, fireEvent, RenderAPI } from "../../test-utils";
 import HomeScreen from ".";
 import useFBGetAll from "../../api/useFBGetAll";
-import { todoSlice, addTodo } from "../../slices/todoSlices";
-import { act } from "@testing-library/react-native";
-import { HomeScreenProps } from "./HomeScreenType";
 let component: RenderAPI;
 
 const initialTodo = {
@@ -21,6 +12,7 @@ const initialTodo = {
 
 const navigation: any = {
   navigate: jest.fn(),
+  goBack: jest.fn(),
 };
 jest.mock("../../api/useFBGetAll", () => jest.fn());
 
@@ -41,6 +33,7 @@ beforeEach(() => {
 
 afterAll(() => {
   jest.clearAllMocks();
+  (useFBGetAll as jest.Mock).mockReset();
 });
 
 describe("HomeScreen render correctly", () => {
@@ -56,7 +49,7 @@ describe("HomeScreen render correctly", () => {
   });
 
   test("HomeScreen render loading spinner when loading", () => {
-    (useFBGetAll as jest.Mock).mockReturnValue({
+    (useFBGetAll as jest.Mock).mockReturnValueOnce({
       loading: true,
       data: [],
       error: "",
@@ -65,8 +58,25 @@ describe("HomeScreen render correctly", () => {
     expect(getAllByTestId("spinner").length).toEqual(1);
   });
 
+  test("HomeScreen do not show spinner when not loading", () => {
+    const { queryByTestId } = component;
+    expect(queryByTestId("spinner")).toBeNull();
+  });
+
   test("HomeScreen render error banner when error occur", () => {
-    (useFBGetAll as jest.Mock).mockReturnValue({
+    (useFBGetAll as jest.Mock).mockReturnValueOnce({
+      loading: false,
+      data: [],
+      error: "Error",
+    });
+    const { getAllByText } = render(<HomeScreen navigation={navigation} />);
+    expect(
+      getAllByText("There was a problem loading the todo list").length
+    ).toEqual(1);
+  });
+
+  test("HomeScreen do not show banner when error is null", () => {
+    (useFBGetAll as jest.Mock).mockReturnValueOnce({
       loading: false,
       data: [],
       error: "Error",
@@ -89,7 +99,7 @@ describe("HomeScreen function properly", () => {
   });
 
   test("Refresh button refresh the content when pressed", () => {
-    (useFBGetAll as jest.Mock).mockReturnValue({
+    (useFBGetAll as jest.Mock).mockReturnValueOnce({
       loading: false,
       data: [],
       error: "Error",
@@ -103,7 +113,7 @@ describe("HomeScreen function properly", () => {
     // Ensure that mock is reset with call count = 0
     expect(useFBGetAll).toBeCalledTimes(0);
     // Re-mock the function
-    (useFBGetAll as jest.Mock).mockReturnValue({
+    (useFBGetAll as jest.Mock).mockReturnValueOnce({
       loading: false,
       data: [],
       error: "Error",
