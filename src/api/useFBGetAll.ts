@@ -34,7 +34,7 @@ const useFBGetAll: (
         setError(err);
       }
     };
-    fetchData();
+    if (isFocused) fetchData();
   }, [isFocused, shouldRefetch, collection]);
   return { loading, data, error };
 };
