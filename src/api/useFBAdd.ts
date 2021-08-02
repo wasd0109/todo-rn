@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 type useFBAddReturn = {
   loading: boolean;
   success: boolean;
-  error: string;
+  error: string | null;
 };
 
 export type Doc = {
@@ -13,12 +13,17 @@ export type Doc = {
   createdAt: number;
 };
 
-const useFBAdd: (collection: string, doc: Doc) => useFBAddReturn = (
+const useFBAdd: (
   collection: string,
-  doc: Doc
+  doc: Doc,
+  callback?: Function
+) => useFBAddReturn = (
+  collection: string,
+  doc: Doc,
+  callback?: Function
 ): useFBAddReturn => {
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (doc.id) {
@@ -33,14 +38,16 @@ const useFBAdd: (collection: string, doc: Doc) => useFBAddReturn = (
             await docRef.set(doc);
             setLoading(false);
             setSuccess(true);
+            if (callback) callback(); // Receive callback for action after success
           }
         } catch (err) {
           setError(err);
         }
       };
+      addDoc();
     }
   }, [doc]);
   return { success, error, loading };
 };
 
-export { useFBAdd };
+export default useFBAdd;

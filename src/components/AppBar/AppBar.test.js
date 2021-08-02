@@ -58,14 +58,6 @@ describe("AppBar render correctly", () => {
 });
 
 describe("AppBar function properly", () => {
-  test("Plus button lead to AddToDo screen", () => {
-    const { getByLabelText } = component;
-    const addButtonRef = getByLabelText("add-todo");
-    fireEvent.press(addButtonRef);
-    expect(defaultProps.navigation.navigate).toBeCalled();
-    expect(defaultProps.navigation.navigate).toBeCalledWith("AddTodo");
-  });
-
   test("Back button lead to previous screen", () => {
     const props = {
       navigation: {
